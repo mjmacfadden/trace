@@ -127,16 +127,45 @@ image.onload = () => {
   drawOverlay();
 };
 
+let rotation = 0; // Rotation angle in degrees
+
+
 // Redraw the image on canvas
 function drawOverlay() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.globalAlpha = opacityRange.value;
 
-  // Draw the scaled image at the calculated position
+  // Save the current state
+  context.save();
+
+  // Move to the center of the canvas
+  context.translate(canvas.width / 2, canvas.height / 2);
+
+  // Apply rotation
+  context.rotate((rotation * Math.PI) / 180);
+
+  // Draw the image, centered at the origin
   const scaledWidth = image.width * scale;
   const scaledHeight = image.height * scale;
-  context.drawImage(image, imageX, imageY, scaledWidth, scaledHeight);
+  context.drawImage(
+    image,
+    -scaledWidth / 2,
+    -scaledHeight / 2,
+    scaledWidth,
+    scaledHeight
+  );
+
+  // Restore the previous state
+  context.restore();
 }
+
+const rotateButton = document.getElementById('rotateButton');
+
+rotateButton.addEventListener('click', () => {
+  rotation = (rotation + 90) % 360; // Increment rotation, wrap at 360
+  drawOverlay(); // Redraw the canvas with the updated rotation
+});
+
 
 // Start the camera
 startCamera();

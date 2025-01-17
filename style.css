@@ -16,7 +16,7 @@ video, canvas {
     object-fit: cover;
 }
 canvas{
-    object-fit: contain;
+    object-fit:cover;
 }
 #controls {
     position: absolute;
@@ -24,4 +24,16 @@ canvas{
     background: rgba(255, 255, 255, 0.8);
     padding: 10px;
     border-radius: 10px;
+}
+
+#controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
 }
