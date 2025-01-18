@@ -3,13 +3,17 @@ const canvas = document.getElementById('overlay');
 const context = canvas.getContext('2d');
 const imageUpload = document.getElementById('imageUpload');
 const opacityRange = document.getElementById('opacityRange');
+const sizeRange = document.getElementById('sizeRange'); // New: Size adjustment slider
+const positionXRange = document.getElementById('positionXRange'); // New: Horizontal position slider
+const positionYRange = document.getElementById('positionYRange'); // New: Vertical position slider
 
 let image = new Image();
-let imageX = 0; // Initial image X position
-let imageY = 0; // Initial image Y position
-let scale = 1; // Initial scale
-let isDragging = false; // Drag state
-let startX, startY; // Drag start positions
+let imageX = 0; 
+let imageY = 0; 
+let scale = 1; 
+let isDragging = false; 
+let startX, startY; 
+let rotation = 0; 
 
 // Access the rear camera
 async function startCamera() {
@@ -26,7 +30,19 @@ async function startCamera() {
 video.addEventListener('loadeddata', () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
+  updateRangeInputs(); // Update range inputs when canvas size changes
 });
+
+function updateRangeInputs() {
+  sizeRange.max = 2; // Allow image to be twice the size at most, adjust as needed
+  sizeRange.value = 1; // Reset to default scale
+  positionXRange.min = -canvas.width / 2; // Allow image to move outside canvas bounds
+  positionXRange.max = canvas.width / 2;
+  positionXRange.value = 0; // Reset to center
+  positionYRange.min = -canvas.height / 2;
+  positionYRange.max = canvas.height / 2;
+  positionYRange.value = 0; // Reset to center
+}
 
 // Image upload and validation
 imageUpload.addEventListener('change', async (event) => {
@@ -71,8 +87,22 @@ async function convertHEICtoJPEG(file) {
   });
 }
 
-// Adjust opacity
+
+//File Name
+document.getElementById('imageUpload').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    document.getElementById('fileNameDisplay').textContent = file.name;
+  }
+});
+
+
+
+// Adjust opacity, size, and position
 opacityRange.addEventListener('input', drawOverlay);
+sizeRange.addEventListener('input', drawOverlay);
+positionXRange.addEventListener('input', drawOverlay);
+positionYRange.addEventListener('input', drawOverlay);
 
 // Dragging logic
 canvas.addEventListener('mousedown', (e) => {
@@ -85,6 +115,8 @@ canvas.addEventListener('mousemove', (e) => {
   if (isDragging) {
     imageX = e.offsetX - startX;
     imageY = e.offsetY - startY;
+    positionXRange.value = imageX - canvas.width / 2;
+    positionYRange.value = imageY - canvas.height / 2;
     drawOverlay();
   }
 });
@@ -98,37 +130,12 @@ canvas.addEventListener('mouseout', () => {
 });
 
 image.onload = () => {
-  // Get canvas dimensions
-  const canvasWidth = canvas.width;
-  const canvasHeight = canvas.height;
-
-  // Calculate aspect ratios
-  const imageAspectRatio = image.width / image.height;
-  const canvasAspectRatio = canvasWidth / canvasHeight;
-
-  // Determine scaling factor based on aspect ratio
-  if (imageAspectRatio > canvasAspectRatio) {
-    // Image is wider than the canvas
-    scale = canvasWidth / image.width; // Scale by width
-  } else {
-    // Image is taller than or matches the canvas aspect ratio
-    scale = canvasHeight / image.height; // Scale by height
-  }
-
-  // Calculate scaled dimensions of the image
-  const scaledWidth = image.width * scale;
-  const scaledHeight = image.height * scale;
-
-  // Center the image in the canvas
-  imageX = (canvasWidth - scaledWidth) / 2; // Horizontal centering
-  imageY = (canvasHeight - scaledHeight) / 2; // Vertical centering
-
-  // Redraw the image
+  scale = 1; // Reset scale when image loads
+  imageX = canvas.width / 2; // Center image
+  imageY = canvas.height / 2;
+  updateRangeInputs(); // Update range inputs based on new image
   drawOverlay();
 };
-
-let rotation = 0; // Rotation angle in degrees
-
 
 // Redraw the image on canvas
 function drawOverlay() {
@@ -139,10 +146,14 @@ function drawOverlay() {
   context.save();
 
   // Move to the center of the canvas
-  context.translate(canvas.width / 2, canvas.height / 2);
+  context.translate(canvas.width / 2 + parseFloat(positionXRange.value), canvas.height / 2 + parseFloat(positionYRange.value));
 
   // Apply rotation
   context.rotate((rotation * Math.PI) / 180);
+
+  // Apply scaling
+  const currentScale = parseFloat(sizeRange.value);
+  context.scale(currentScale, currentScale);
 
   // Draw the image, centered at the origin
   const scaledWidth = image.width * scale;
@@ -166,6 +177,6 @@ rotateButton.addEventListener('click', () => {
   drawOverlay(); // Redraw the canvas with the updated rotation
 });
 
-
 // Start the camera
 startCamera();
+

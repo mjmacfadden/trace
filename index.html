@@ -9,9 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- CUSTOM CSS-->
   <link href="style.css" rel="stylesheet">
 </head>
@@ -20,19 +18,47 @@
   <video id="camera" autoplay playsinline muted></video>
   <canvas id="overlay"></canvas>
 
-  <div class="container-fluid">
-    <div id="controls">
-      <div class="row px-1 pb-3">
-        <div class="col-6"><input type="file" class="btn" id="imageUpload" accept="image/*"></div>
-        <div class="col-6 text-end px-4 pt-1"><i class="bi bi-arrow-clockwise " id="rotateButton"></i></div>
-        <!--<label for="opacityRange">Opacity:</label>-->
-      </div>
-      <div class="row px-4">
-        <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="0.5">
-      </div>
+  <!-- Bootstrap Navbar with Controls -->
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarControls">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <label for="imageUpload" class="btn btn-primary mb-2">
+              Upload Image
+              <input type="file" class="d-none" id="imageUpload" accept="image/*">
+            </label>
+            <div id="fileNameDisplay" class="mb-2"></div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="rotateButton"><i class="bi bi-arrow-clockwise"></i></a>
+          </li>
+        </ul>
+        <div class="d-flex flex-column w-100">
+          <div class="slider-group mb-2">
+            <div class="slider-label">Opacity:</div>
+            <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="0.5" class="w-100">
+          </div>
+          <div class="slider-group mb-2">
+            <div class="slider-label">Size:</div>
+            <input type="range" id="sizeRange" min="0.1" max="2" step="0.01" value="1" class="w-100">
+          </div>
+          <div class="slider-group mb-2">
+            <div class="slider-label">X:</div>
+            <input type="range" id="positionXRange" min="-1" max="1" step="0.01" value="0" class="w-100">
+          </div>
+          <div class="slider-group mb-2">
+            <div class="slider-label">Y:</div>
+            <input type="range" id="positionYRange" min="-1" max="1" step="0.01" value="0" class="w-100">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </nav>
+
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Bootstrap JS -->
