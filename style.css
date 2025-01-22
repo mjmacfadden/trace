@@ -12,7 +12,21 @@ video, canvas {
     height: 100%;
     object-fit: cover;
 }
-
+.logo, 
+.info{
+    z-index:100;
+    position:absolute;
+    top:10 px;
+    left:10px;
+    font-weight:100;
+    color:#FFF;
+    opacity:50%;
+}
+.info{
+    top:10px;
+    left:auto;
+    right:15px;
+}
 canvas {
     object-fit: cover;
 }
@@ -20,7 +34,9 @@ canvas {
 .navbar {
     padding: 10px 0;
 }
-
+.btn-light{
+    opacity:60%;    
+}
 #rotateButton {
     font-size: 1.5em;
 }
@@ -42,5 +58,23 @@ canvas {
 
 #fileNameDisplay {
     font-size: 0.8em;
-    color: #6c757d; /* Bootstrap's gray-600 */
+    color: #FFF; /* Bootstrap's gray-600 */
 }
+
+.navbar-collapse i{
+    font-size: 1.5em;
+}
+
+.frosted-glass {
+  background: rgba(0, 0, 0, 0.1); /* Semi-transparent black background */
+  color: #fff; /* White text for contrast */
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .frosted-glass {
+    -webkit-backdrop-filter: blur(10px); /* Frosted glass effect for Safari */
+    backdrop-filter: blur(10px); /* Frosted glass effect for modern browsers */
+  }
+}
+
+

@@ -15,54 +15,78 @@
 </head>
 
 <body>
+  <h1 class="logo">tracey</h1>
+  <i class="bi bi-info-circle info" data-bs-toggle="modal" data-bs-target="#fullscreenModal"></i>
+  Open Full-Screen Modal
+</button>
   <video id="camera" autoplay playsinline muted></video>
   <canvas id="overlay"></canvas>
 
   <!-- Bootstrap Navbar with Controls -->
-  <nav class="navbar fixed-bottom navbar-light bg-light">
+  <nav class="navbar fixed-bottom navbar-dark frosted-glass">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarControls">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <label for="imageUpload" class="btn btn-primary mb-2">
-              Upload Image
-              <input type="file" class="d-none" id="imageUpload" accept="image/*">
-            </label>
-            <div id="fileNameDisplay" class="mb-2"></div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="rotateButton"><i class="bi bi-arrow-clockwise"></i></a>
-          </li>
-        </ul>
-        <div class="d-flex flex-column w-100">
-          <div class="slider-group mb-2">
-            <div class="slider-label">Opacity:</div>
-            <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="0.5" class="w-100">
-          </div>
-          <div class="slider-group mb-2">
-            <div class="slider-label">Size:</div>
-            <input type="range" id="sizeRange" min="0.1" max="2" step="0.01" value="1" class="w-100">
-          </div>
-          <div class="slider-group mb-2">
-            <div class="slider-label">X:</div>
-            <input type="range" id="positionXRange" min="-1" max="1" step="0.01" value="0" class="w-100">
-          </div>
-          <div class="slider-group mb-2">
-            <div class="slider-label">Y:</div>
-            <input type="range" id="positionYRange" min="-1" max="1" step="0.01" value="0" class="w-100">
-          </div>
+        <!-- Upload button in place of site name -->
+        <label for="imageUpload" class="btn btn-light btn-sm mb-2">
+            UPLOAD IMAGE
+            <input type="file" class="d-none" id="imageUpload" accept="image/*">
+        </label>
+        <div id="fileNameDisplay" class="mb-2 ms-3"></div>
+        <ul class="navbar-nav mb-2 ms-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="rotateButton"><i class="bi bi-arrow-clockwise"></i></a>
+                </li>
+            </ul>
+        <!-- Hamburger menu on the right -->
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse flex-column align-items-start" id="navbarControls">
+            <div class="d-flex flex-column w-100">
+                <div class="slider-group mb-3">
+                    <div class="slider-label"><i class="bi bi-transparency"></i></div>
+                    <input type="range" id="opacityRange" min="0" max="1" step="0.01" value="0.5" class="w-100">
+                </div>
+                <div class="slider-group mb-3">
+                    <div class="slider-label"><i class="bi bi-aspect-ratio"></i></div>
+                    <input type="range" id="sizeRange" min="0.1" max="2" step="0.01" value="1" class="w-100">
+                </div>
+                <div class="slider-group mb-3">
+                    <div class="slider-label"><i class="bi bi-arrow-left-right"></i></div>
+                    <input type="range" id="positionXRange" min="-1" max="1" step="0.01" value="0" class="w-100">
+                </div>
+                <div class="slider-group mb-3">
+                    <div class="slider-label"><i class="bi bi-arrow-down-up"></i></div>
+                    <input type="range" id="positionYRange" min="-1" max="1" step="0.01" value="0" class="w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+  </nav>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fullscreenModalLabel">TRACEY: ART TRACING APP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>More soon...</p>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+
 
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <!-- HEIC 2 ANY -->
   <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
   <!-- CUSTOM SCRIPTS-->
