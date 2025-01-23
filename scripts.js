@@ -48,9 +48,9 @@ function updateRangeInputs() {
 imageUpload.addEventListener('change', async (event) => {
   const file = event.target.files[0];
   if (file) {
-    const validTypes = ['image/jpeg', 'image/png', 'image/heic'];
+    const validTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/webp'];
     if (!validTypes.includes(file.type)) {
-      alert('Please upload a valid image file (JPG, PNG, or HEIC only).');
+      alert('Please upload a valid image file (JPG, PNG, WEBP, or HEIC only).');
       imageUpload.value = '';
       return;
     }
