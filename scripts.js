@@ -50,7 +50,7 @@ imageUpload.addEventListener('change', async (event) => {
   if (file) {
     const validTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/webp'];
     if (!validTypes.includes(file.type)) {
-      alert('Please upload a valid image file (JPG, PNG, WEBP, or HEIC only).');
+      alert('Please upload a valid image file (JPG, PNG, WebP, or HEIC only).');
       imageUpload.value = '';
       return;
     }
